@@ -2,6 +2,7 @@ const { MAIL_ALERT_CONFIG, EMAILCONFIG }  = require('../constants/constants')
 const nodemailer = require("nodemailer");
 const axios = require('axios');
 const { priceSchema } = require('../models/model');
+var moment = require('moment');
 
 async function getUsdPrice() {
     try{
@@ -12,7 +13,7 @@ async function getUsdPrice() {
         let res = await axios(config)
         const usdPrice = res.data.market_data.current_price.usd
         const bitCoinObj = new priceSchema({
-            usdPrice, date : new Date()
+            usdPrice, createdAt : new Date(), date : moment(new Date).format('DD-MM-YYYY')
         })
         data = await bitCoinObj.save();
         if (usdPrice <= MAIL_ALERT_CONFIG.minValue || usdPrice >= MAIL_ALERT_CONFIG.maxValue) await alertMail()

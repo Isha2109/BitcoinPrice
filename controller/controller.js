@@ -2,11 +2,12 @@ const { priceSchema } = require('../models/model');
 
 async function getBtcPrice(btcObj){
     try{
-        data = await priceSchema.find({ createdAt: btcObj.createdAt },{ _id : 0, _v: 0 },
+        data = await priceSchema.find({ date: btcObj.date },{ _id : 0, _v: 0 },
             {
                 offset:btcObj.offset,
                 limit: btcObj.limit
             })
+           // console.log(data)
         data = data.map(val=> {
             return {  
                 timestamp: val.createdAt,
@@ -14,7 +15,7 @@ async function getBtcPrice(btcObj){
                 price: val.usdPrice
             }
         })
-        console.log({ data })
+        //console.log(data )
         const datStr = btcObj.search.split('&')
         const response = {
             url : `${btcObj.url}${btcObj.search}`,
@@ -22,11 +23,11 @@ async function getBtcPrice(btcObj){
             count: data.length,
             data
         }
-        console.log({response})
+        return response
     }
     catch(ex){
         console.log({ ex })
-        return false
+        return {}
     }
 }
 
