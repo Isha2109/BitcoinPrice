@@ -10,9 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.1.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "moment": "^2.29.4",
     "mongoose": "^6.6.5",
-    "node-modules": "^1.0.1",
+    "mongoose-double": "^0.0.1",
+    "node-cron": "^3.0.2",
+    "nodemailer": "^6.8.0",
     "nodemon": "^2.0.20"
   }
 }
